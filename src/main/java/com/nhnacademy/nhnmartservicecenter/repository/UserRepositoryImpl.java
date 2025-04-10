@@ -16,7 +16,12 @@ public class UserRepositoryImpl implements UserRepository{
     public UserRepositoryImpl() {
         userMap = new ConcurrentHashMap<>();
         userMap.put("123", new User("123","123","123", User.auth.ADMIN));
-        userMap.put("456", new User("456","456","456", User.auth.CUSTOM));
+        userMap.put("444", new User("444","444","444", User.auth.CUSTOM));
+        userMap.put("555", new User("555","555","555", User.auth.CUSTOM));
+        userMap.put("666", new User("666","666","666", User.auth.CUSTOM));
+        userMap.put("777", new User("777","777","777", User.auth.CUSTOM));
+        userMap.put("888", new User("888","888","888", User.auth.CUSTOM));
+        userMap.put("999", new User("999","999","999", User.auth.CUSTOM));
     }
 
     @Override

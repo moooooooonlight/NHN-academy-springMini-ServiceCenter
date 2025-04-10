@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+</head>
+<body>
+<h2>문의글 목록 (관리자용)</h2>
+<br/><br/>
+<form action="/admin/cs" method="get">
+    <label for="category">분류별 보기:</label>
+    <select name="category" id="category">
+        <option value="">전체</option>
+        <option th:each="c : ${categoryList}"
+                th:value="${c}"
+                th:text="${c}"
+                th:selected="${param.category == c}">
+        </option>
+    </select>
+    <button type="submit">검색</button>
+</form>
+<br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>분류</th>
+        <th>작성일시</th>
+        <th>답변 상태</th>
+        <th>관리</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="inquiry, i : ${inquiryList}">
+        <td th:text="${i.count}">1</td>
+        <td th:text="${inquiry.title}">제목</td>
+        <td th:text="${inquiry.category}">불만 접수</td>
+        <td th:text="${#temporals.format(inquiry.createdAt, 'yyyy-MM-dd HH:mm')}">2025-04-10 14:00</td>
+        <td th:text="${inquiry.answer != null ? '답변 완료' : '답변 대기'}"></td>
+        <td>
+                    <span th:if="${inquiry.answer == null}">
+                        <a th:href="@{/admin/cs/inquiry/{inquiryId}(inquiryId=${inquiry.id})}">답변 작성</a>
+                    </span>
+            <span th:if="${inquiry.answer != null}">-</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br ><br >
+<form action="/cs/logout" method="post">
+    <button type="submit">로그아웃</button>
+</form>
+</body>
+</html>

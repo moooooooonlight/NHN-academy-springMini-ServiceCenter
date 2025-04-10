@@ -9,7 +9,7 @@
 
 <p><strong>분류:</strong> <span th:text="${inquiry.category}">분류</span></p>
 <p><strong>제목:</strong> <span th:text="${inquiry.title}">제목</span></p>
-<p><strong>작성자:</strong> <span th:text="${userName}">고객이름</span></p>
+<p><strong>작성자:</strong> <span th:text="${inquiry.userName}">작성자</span></p>
 <p><strong>작성일시:</strong>
     <span th:text="${#temporals.format(inquiry.createdAt, 'yyyy-MM-dd HH:mm')}">작성일시</span>
 </p>
@@ -33,14 +33,14 @@
     <pre th:text="${inquiry.answer.content}">답변 내용</pre>
 
     <p><strong>답변일시:</strong>
-        <span th:text="${#temporals.format(inquiry.answer.answeredAt, 'yyyy-MM-dd HH:mm')}">날짜</span>
+        <span th:text="${#temporals.format(inquiry.answer.creatAt, 'yyyy-MM-dd HH:mm')}">날짜</span>
     </p>
     <p><strong>CS 담당자:</strong>
-        <span th:text="${inquiry.answer.csManagerName}">담당자</span>
+        <span th:text="${inquiry.answer.user.name}">담당자</span>
     </p>
 </div>
 
 <br/>
-<a th:href="@{/customer}">목록으로</a>
+<a href="/custom/cs">목록으로</a>
 </body>
 </html>

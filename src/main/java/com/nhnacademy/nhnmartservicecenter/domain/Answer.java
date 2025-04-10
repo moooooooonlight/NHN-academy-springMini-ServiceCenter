@@ -8,16 +8,13 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class Answer {
-    private String title;
-    private String content;
-    private LocalDateTime localDateTime;
+public class Answer { private String content;
+    private LocalDateTime creatAt;
     private User user;
 
-    public Answer(String title, String content, User user) {
-        this.title = title;
+    public Answer(String content, User user) {
         this.content = content;
-        this.localDateTime = LocalDateTime.now();
+        this.creatAt = LocalDateTime.now();
         this.user = user;
     }
 }

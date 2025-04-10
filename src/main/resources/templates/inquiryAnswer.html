@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>답변 작성</title>
+</head>
+<body>
+<h2>문의 답변 작성</h2>
+
+<div>
+    <p><strong>분류:</strong> <span th:text="${inquiry.category}"></span></p>
+    <p><strong>제목:</strong> <span th:text="${inquiry.title}"></span></p>
+    <p><strong>작성자:</strong> <span th:text="${inquiry.userName}"></span></p>
+    <p><strong>작성일시:</strong>
+        <span th:text="${#temporals.format(inquiry.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+    </p>
+    <p><strong>본문:</strong></p>
+    <pre th:text="${inquiry.content}">문의 내용</pre>
+
+    <div th:if="${inquiry.filePath != null}">
+        <strong>첨부파일:</strong><br/>
+        <img th:src="@{${inquiry.filePath}}" alt="첨부 이미지" style="max-width: 500px; max-height: 500px;"/><br/>
+        <a th:href="@{${inquiry.filePath}}" target="_blank">이미지 새 탭에서 보기</a>
+    </div>
+</div>
+
+<hr/>
+
+<form th:action="@{/admin/cs/inquiry/{inquiryId}(inquiryId=${inquiry.id})}" method="post">
+    <label for="answerContent">답변 내용:</label><br/>
+    <textarea id="answerContent" name="answerContent" rows="10" cols="50" required></textarea>
+    <br/><br/>
+
+    <p><strong>CS 담당자:</strong>
+        <span th:text="${csName}">담당자</span>
+    </p>
+    <br/><br/>
+
+    <button type="submit">답변 제출</button>
+    <button><a href="/admin/cs">취소</a></button>
+</form>
+
+<br/>
+</body>
+</html>

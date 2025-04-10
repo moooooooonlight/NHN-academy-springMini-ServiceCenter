@@ -9,10 +9,23 @@
 
 <a href="/custom/cs/inquiry">문의하기</a>
 <br/><br/>
-
+<form action="/custom/cs" method="get">
+    <label for="category">분류별 보기:</label>
+    <select name="category" id="category">
+        <option value="">전체</option>
+        <option th:each="c : ${categoryList}"
+                th:value="${c}"
+                th:text="${c}"
+                th:selected="${param.category == c}">
+        </option>
+    </select>
+    <button type="submit">검색</button>
+</form>
+<br/>
 <table border="1">
     <thead>
     <tr>
+        <th>번호</th>
         <th>제목</th>
         <th>분류</th>
         <th>작성일시</th>
@@ -20,7 +33,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="inquiry : ${inquiryList}">
+    <tr th:each="inquiry, i : ${inquiryList}">
+        <td th:text="${i.count}">1</td>
         <td>
             <a th:href="@{/custom/cs/inquiry/{id}(id=${inquiry.id})}"
                th:text="${inquiry.title}">제목</a>
@@ -36,7 +50,7 @@
 </table>
 
 <br/>
-<form th:action="@{/logout}" method="post">
+<form action="/cs/logout" method="post">
     <button type="submit">로그아웃</button>
 </form>
 </body>
