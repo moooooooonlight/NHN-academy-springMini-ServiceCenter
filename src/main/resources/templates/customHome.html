@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>고객 문의 내역</title>
+</head>
+<body>
+<h2>나의 문의 내역</h2>
+
+<a href="/custom/cs/inquiry">문의하기</a>
+<br/><br/>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>분류</th>
+        <th>작성일시</th>
+        <th>답변 여부</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="inquiry : ${inquiryList}">
+        <td>
+            <a th:href="@{/custom/cs/inquiry/{id}(id=${inquiry.id})}"
+               th:text="${inquiry.title}">제목</a>
+        </td>
+        <td th:text="${inquiry.category}">분류</td>
+        <td th:text="${#temporals.format(inquiry.createdAt, 'yyyy-MM-dd')}">작성일</td>
+        <td>
+            <span th:if="${inquiry.answer == null}">대기 중</span>
+            <span th:if="${inquiry.answer != null}">답변 완료</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">로그아웃</button>
+</form>
+</body>
+</html>

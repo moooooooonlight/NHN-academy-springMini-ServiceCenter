@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>문의 작성</title>
+</head>
+<body>
+<h2>문의하기</h2>
+
+<form th:action="@{/cs/inquiry}" method="post" enctype="multipart/form-data">
+    <label for="category">문의 분류:</label>
+    <select id="category" name="category" required>
+        <option value="">-- 선택 --</option>
+        <option th:each="c : ${category}" th:value="${c}" th:text="${c}"></option>
+    </select>
+    <br/><br/>
+
+    <label for="title">제목:</label>
+    <input type="text" id="title" name="title" required />
+    <br/>
+
+    <label for="content">본문:</label><br/>
+    <textarea id="content" name="content" rows="10" cols="50" required></textarea>
+    <br/><br/>
+
+    <label for="file">첨부파일:</label>
+    <input type="file" id="file" name="file" />
+    <br/><br/>
+
+    <button type="submit">제출</button>
+</form>
+
+<br/>
+<a th:href="@{/customer}">뒤로가기</a>
+</body>
+</html>

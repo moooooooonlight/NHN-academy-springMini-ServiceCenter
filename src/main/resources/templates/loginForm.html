@@ -7,8 +7,8 @@
 <body>
 <h2>로그인</h2>
 <form action="/cs/login" method="post">
-    <label for="username">아이디:</label>
-    <input type="text" id="username" name="username" required /><br/>
+    <label for="id">아이디:</label>
+    <input type="text" id="id" name="id" required /><br/>
 
     <label for="password">비밀번호:</label>
     <input type="password" id="password" name="password" required /><br/>
@@ -16,7 +16,7 @@
     <button type="submit">로그인</button>
 </form>
 
-<div th:if="${err   or}">
+<div th:if="${error}">
     <p style="color:red;" th:text="${error}"></p>
 </div>
 </body>
