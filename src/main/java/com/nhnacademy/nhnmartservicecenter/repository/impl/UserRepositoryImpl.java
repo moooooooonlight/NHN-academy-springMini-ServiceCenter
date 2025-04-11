@@ -1,6 +1,9 @@
-package com.nhnacademy.nhnmartservicecenter.repository;
+package com.nhnacademy.nhnmartservicecenter.repository.impl;
 
 import com.nhnacademy.nhnmartservicecenter.domain.User;
+import com.nhnacademy.nhnmartservicecenter.exception.UserNotFountException;
+import com.nhnacademy.nhnmartservicecenter.exception.UserRegisterAlreadyExistException;
+import com.nhnacademy.nhnmartservicecenter.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     Map<String, User> userMap;
 
@@ -56,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public void addUser(User user) {
         if(exists(user.getId())){
-            // 이미 존재하는 id이다.
+            throw new UserRegisterAlreadyExistException();
         }
         userMap.put(user.getId(),user);
     }
@@ -64,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public void modify(String id, User user) {
         if(!exists(id)){
-            // 존재하지 않는 user입니다.
+            throw new UserNotFountException();
         }
 
         userMap.put(id, user);
