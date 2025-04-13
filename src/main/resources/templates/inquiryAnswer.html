@@ -17,10 +17,14 @@
     <p><strong>본문:</strong></p>
     <pre th:text="${inquiry.content}">문의 내용</pre>
 
-    <div th:if="${inquiry.filePath != null}">
+    <div th:if="${inquiry.filePaths != null}">
         <strong>첨부파일:</strong><br/>
-        <img th:src="@{${inquiry.filePath}}" alt="첨부 이미지" style="max-width: 500px; max-height: 500px;"/><br/>
-        <a th:href="@{${inquiry.filePath}}" target="_blank">이미지 새 탭에서 보기</a>
+        <div th:each="filePath : ${inquiry.filePaths}">
+            <a th:href="@{${filePath}}" target="_blank">
+                <img th:src="@{${filePath}}" alt="첨부 이미지"
+                     style="max-width: 200px; max-height: 200px; margin: 10px; border: 1px solid #ccc;"/>
+            </a>
+        </div>
     </div>
 </div>
 

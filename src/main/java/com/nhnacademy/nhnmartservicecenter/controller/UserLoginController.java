@@ -1,6 +1,7 @@
 package com.nhnacademy.nhnmartservicecenter.controller;
 
 import com.nhnacademy.nhnmartservicecenter.domain.User;
+import com.nhnacademy.nhnmartservicecenter.exception.UserWrongLogoutException;
 import com.nhnacademy.nhnmartservicecenter.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -66,6 +67,8 @@ public class UserLoginController {
         HttpSession session = request.getSession(); // true 유무의 차이는?
         session.setAttribute("userId",id);
         Cookie cookie = new Cookie("SESSION",session.getId());
+        cookie.setPath("/");
+        cookie.setMaxAge(6000);
         response.addCookie(cookie);
 
         return authCheck(session);
@@ -81,10 +84,13 @@ public class UserLoginController {
     public String doLogout(HttpServletRequest request,
                            HttpServletResponse response){
         HttpSession session = request.getSession();
+        if(Objects.isNull(session.getAttribute("userId"))){
+            throw new UserWrongLogoutException();
+        }
         session.removeAttribute("userId");
 
         Cookie cookie = new Cookie("SESSION", null);
-        cookie.setPath("/cs");
+        cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 

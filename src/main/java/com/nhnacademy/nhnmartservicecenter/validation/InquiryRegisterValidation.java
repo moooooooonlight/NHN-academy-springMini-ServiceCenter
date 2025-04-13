@@ -2,9 +2,11 @@ package com.nhnacademy.nhnmartservicecenter.validation;
 
 import com.nhnacademy.nhnmartservicecenter.domain.InquiryRegisterRequest;
 import com.nhnacademy.nhnmartservicecenter.exception.ValidationFailedException;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class InquiryRegisterValidation implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
